@@ -149,7 +149,7 @@ async function loadGames(){
 
     const files = [];
     const walk = async (itemPath) => {
-      const res = await graph(`/drives/${drive.id}${itemPath}/children?$select=id,name,size,lastModifiedDateTime,file,folder,video,@microsoft.graph.downloadUrl&$top=200`);
+     const res = await graph(`/drives/${drive.id}${itemPath}/children?$top=200`);
       for (const it of res.value){
         if (it.folder) await walk(`/items/${it.id}`);
         else if (it.file && /\.(mp4|mov|m4v|webm)$/i.test(it.name)) files.push(it);
